@@ -14,14 +14,13 @@ def make_table(results: dict[int, list]):
     for values in results.values():
         values.append(mean(values))
 
-    print(
-        tabulate(
+    return tabulate(
             {" ": ["Categoria 1", "Categoria 2", "Categoria 3", "Média"]} | results,
             headers="keys",
             numalign="center",
-            tablefmt="fancy_grid",
+            tablefmt="latex",
         )
-    )
+    
 
 
 def fazer_testes(funcao, repeticoes, sizes=[100, 200, 500, 1000, 2000, 5000, 10000]):
@@ -39,11 +38,11 @@ def fazer_testes(funcao, repeticoes, sizes=[100, 200, 500, 1000, 2000, 5000, 100
                     res.setdefault(size, []).append(desempenho)
 
                 # Guarda o tempo de execução dos 3 maiores sample sizes para cada categoria
-                if size in sizes[::-1][:3]:
-                    t = end - start
+               
+                t = end - start
 
-                    tempos.setdefault(size, [0, 0, 0])
-                    tempos[size][cat - 1] = t
+                tempos.setdefault(size, [0, 0, 0])
+                tempos[size][cat - 1] = t
 
     for ts in tempos.values():
         for t in ts:
